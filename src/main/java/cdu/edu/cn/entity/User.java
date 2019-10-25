@@ -7,6 +7,9 @@ public class User {
     int sex;
     String sign;
 
+    public User() {
+    }
+
     public User(String id, String name, String password, int sex, String sign) {
         this.id = id;
         this.name = name;
