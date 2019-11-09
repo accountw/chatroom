@@ -5,16 +5,16 @@ import cdu.edu.cn.dto.Userdto;
 import cdu.edu.cn.entity.User;
 import cdu.edu.cn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
+
+
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
+import java.util.Scanner;
+
 
 @RestController
 public class UserController {
@@ -30,6 +30,10 @@ public class UserController {
         user.setId(userdto.getId());
         user.setPassword(userdto.getPassword());
         if(userService.checkUser(user)){
+            User user1=userService.getuserbyid(userdto.getId());
+
+            session.setAttribute("naem",user1.getName());
+            session.setAttribute("id",userdto.getId());
             return "0";
         }
 

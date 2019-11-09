@@ -20,4 +20,8 @@ public class UserService {
         return  false;
     }
 
+    public  User getuserbyid(String id){
+        return  userRepository.getuserbyid(id);
+    }
+
 }

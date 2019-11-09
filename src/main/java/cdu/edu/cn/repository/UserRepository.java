@@ -11,4 +11,10 @@ public interface UserRepository {
 
     @Select("select * from user where id=#{id} and password=#{password}")
     public Integer checkUser(User user);
+
+
+    @Select("select * from user where id=#{id}")
+    public User getuserbyid(String id);
+
+
 }
