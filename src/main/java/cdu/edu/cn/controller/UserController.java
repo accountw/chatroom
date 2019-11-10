@@ -32,7 +32,7 @@ public class UserController {
         if(userService.checkUser(user)){
             User user1=userService.getuserbyid(userdto.getId());
 
-            session.setAttribute("naem",user1.getName());
+            session.setAttribute("name",user1.getName());
             session.setAttribute("id",userdto.getId());
             return "0";
         }

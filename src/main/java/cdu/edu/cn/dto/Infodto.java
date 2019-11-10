@@ -5,20 +5,20 @@ package cdu.edu.cn.dto;
 
 //封装json对象
 public class Infodto {
-    String uid;
+    String name;
     String context;
 
-    public Infodto(String uid, String context) {
-        this.uid = uid;
+    public Infodto(String name, String context) {
+        this.name = name;
         this.context = context;
     }
 
-    public String getUid() {
-        return uid;
+    public String getname() {
+        return name;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getContext() {

@@ -6,16 +6,55 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script >
+    <script type="text/javascript">
+        var stompClient = null;
+        function send() {
+            stompClient.send("/app/upInfo", {}, JSON.stringify({
+                "name": $("#user").text(),
+                "context": $("#context").val()
+            }));
+        }
 
+        function showInfo(infodto) {
+            $("#contexts").append("<tr><td>" + infodto.name + ':' + infodto.context + "</td></tr>");
+        }
 
+        $(document).ready(function () {
+            var socket = new SockJS('/gs-guide-websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/chatroom', function (message) {
+
+                    showInfo(JSON.parse(message.body));
+                })
+            });
+            $("#send").click(function () {
+                send();
+            });
+        });
     </script>
 </head>
 <body>
 
 <div>
     <div>
-        <div></div>
+        用户：
+        <div id="user" th:text="${session.name}">
+
+        </div>
+        </d>
+        <input id="context">
+        <button id="send">发送消息</button>
+        <table id="conversation">
+            <thead>
+            <tr>
+                <th>消息</th>
+            </tr>
+            </thead>
+            <tbody id="contexts">
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
