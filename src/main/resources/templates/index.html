@@ -10,6 +10,7 @@
         var stompClient = null;
         function send() {
             stompClient.send("/app/upInfo", {}, JSON.stringify({
+                "id": $("#id").val(),
                 "name": $("#user").text(),
                 "context": $("#context").val()
             }));
@@ -20,12 +21,15 @@
         }
 
         $(document).ready(function () {
+            $("#userid").hidden;
+            var id=$("#userid").text();
             var socket = new SockJS('/gs-guide-websocket');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/chatroom', function (message) {
+                stompClient.subscribe('/user/'+id+'/topic/chatroom', function (message) {
 
+                    console.log(message+"dasd");
                     showInfo(JSON.parse(message.body));
                 })
             });
@@ -42,9 +46,12 @@
         用户：
         <div id="user" th:text="${session.name}">
 
+
         </div>
+        <div id="userid" th:text="${session.id}" ></div>
         </d>
         <input id="context">
+        <input id="id">
         <button id="send">发送消息</button>
         <table id="conversation">
             <thead>

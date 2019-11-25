@@ -7,6 +7,15 @@ package cdu.edu.cn.dto;
 public class Infodto {
     String name;
     String context;
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Infodto(String name, String context) {
         this.name = name;
